@@ -4,11 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -25,8 +26,8 @@ public class EPI implements Serializable {
 	
 	private String nome;
 	
-	@ManyToMany(mappedBy = "epis")
-	private List<Atividade> atividades = new ArrayList<Atividade>();
+	@OneToMany(mappedBy = "epi", cascade = CascadeType.ALL)
+	private List<AtividadeEPI> atividadeEpis;
 
 	public long getId() {
 		return id;
@@ -44,11 +45,11 @@ public class EPI implements Serializable {
 		this.nome = nome;
 	}
 
-	public List<Atividade> getAtividades() {
-		return atividades;
+	public List<AtividadeEPI> getAtividadeEpis() {
+		return atividadeEpis;
 	}
 
-	public void setAtividades(List<Atividade> atividades) {
-		this.atividades = atividades;
+	public void setAtividadeEpis(List<AtividadeEPI> atividadeEpis) {
+		this.atividadeEpis = atividadeEpis;
 	}
 }

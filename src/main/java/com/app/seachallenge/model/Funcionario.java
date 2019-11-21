@@ -11,9 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -39,15 +38,8 @@ public class Funcionario implements Serializable {
 	@Nullable
 	private byte[] atestadoSaude;
 	
-	@ManyToMany(cascade = {
-			CascadeType.PERSIST,
-			CascadeType.MERGE
-	})
-	@JoinTable(
-			name = "tb_funcionarioatividade",
-			joinColumns = @JoinColumn(name = "id_funcionario"),
-			inverseJoinColumns = @JoinColumn(name = "id_atividade"))
-	private List<Atividade> atividades = new ArrayList<Atividade>();
+	@OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
+	private List<FuncionarioAtividade> funcionarioAtividades;
 	
 	@ManyToOne
 	@JoinColumn
@@ -125,21 +117,11 @@ public class Funcionario implements Serializable {
 		this.cargo = cargo;
 	}
 
-	public List<Atividade> getAtividades() {
-		return atividades;
+	public List<FuncionarioAtividade> getFuncionarioAtividades() {
+		return funcionarioAtividades;
 	}
 
-	public void setAtividades(List<Atividade> atividades) {
-		this.atividades = atividades;
-	}
-	
-	public void addAtividade(Atividade atividade) {
-		atividades.add(atividade);
-		atividade.getFuncionarios().add(this);
-	}
-	
-	public void removeAtividade(Atividade atividade) {
-		atividades.remove(atividade);
-		atividade.getFuncionarios().remove(this);
+	public void setFuncionarioAtividades(List<FuncionarioAtividade> funcionarioAtividades) {
+		this.funcionarioAtividades = funcionarioAtividades;
 	}
 }

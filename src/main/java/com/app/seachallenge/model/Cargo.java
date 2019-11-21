@@ -1,7 +1,7 @@
 package com.app.seachallenge.model;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -26,7 +26,7 @@ public class Cargo implements Serializable {
 	private String nome;
 	
 	@OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL)
-	private Set<Funcionario> funcionarios;
+	private List<Funcionario> funcionarios;
 	
 	public long getId() {
 		return id;
@@ -44,11 +44,11 @@ public class Cargo implements Serializable {
 		this.nome = nome;
 	}
 
-	public Set<Funcionario> getFuncionarios() {
+	public List<Funcionario> getFuncionarios() {
 		return funcionarios;
 	}
 
-	public void setFuncionarios(Set<Funcionario> funcionarios) {
+	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
 	}
 }

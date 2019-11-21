@@ -9,9 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -28,18 +26,11 @@ public class Atividade implements Serializable {
 	
 	private String nome;
 	
-	@ManyToMany(mappedBy = "atividades")
-	private List<Funcionario> funcionarios = new ArrayList<Funcionario>();
+	@OneToMany(mappedBy = "atividade", cascade = CascadeType.ALL)
+	private List<FuncionarioAtividade> funcionarioAtividades;
 	
-	@ManyToMany(cascade = {
-			CascadeType.PERSIST,
-			CascadeType.MERGE
-	})
-	@JoinTable(
-			name = "tb_atividadeepi",
-			joinColumns = @JoinColumn(name = "id_atividade"),
-			inverseJoinColumns = @JoinColumn(name = "id_epi"))
-	private List<EPI> epis = new ArrayList<EPI>();
+	@OneToMany(mappedBy = "atividade", cascade = CascadeType.ALL)
+	private List<AtividadeEPI> atividadeEpis;
 
 	public long getId() {
 		return id;
@@ -57,29 +48,19 @@ public class Atividade implements Serializable {
 		this.nome = nome;
 	}
 
-	public List<Funcionario> getFuncionarios() {
-		return funcionarios;
+	public List<FuncionarioAtividade> getFuncionarioAtividades() {
+		return funcionarioAtividades;
 	}
 
-	public void setFuncionarios(List<Funcionario> funcionarios) {
-		this.funcionarios = funcionarios;
-	}
-
-	public List<EPI> getEpis() {
-		return epis;
-	}
-
-	public void setEpis(List<EPI> epis) {
-		this.epis = epis;
+	public void setFuncionarioAtividades(List<FuncionarioAtividade> funcionarioAtividades) {
+		this.funcionarioAtividades = funcionarioAtividades;
 	}
 	
-	public void addEPI(EPI epi) {
-		epis.add(epi);
-		epi.getAtividades().add(this);
+	public List<AtividadeEPI> getAtividadeEpis() {
+		return atividadeEpis;
 	}
-	
-	public void removeEPI(EPI epi) {
-		epis.remove(epi);
-		epi.getAtividades().remove(this);
+
+	public void setAtividadeEpis(List<AtividadeEPI> atividadeEpis) {
+		this.atividadeEpis = atividadeEpis;
 	}
 }
