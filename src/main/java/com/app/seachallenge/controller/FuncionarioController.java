@@ -147,11 +147,20 @@ public class FuncionarioController extends UtilsController {
 		return jsonFuncionario;
 	}
 	
-	@RequestMapping(value = "/funcionario/get/all", method = RequestMethod.GET)
-	public String geAllt() {
+	@RequestMapping(value = {"/funcionario/get/all", "/funcionario/get/all/{param}"}, method = RequestMethod.GET)
+	public String geAllt(@PathVariable(value = "param", required = false) String param) {
 		String result = "";
 		try {
-			Iterable<Funcionario> funcionarios = funcionarioRepository.findAll();
+			Iterable<Funcionario> funcionarios = null;
+			if(param != null) {
+				if(param.equals("ativo")) {
+					funcionarios = funcionarioRepository.findByAtivoTrue();
+				} else if(param.equals("inativo")) {
+					funcionarios = funcionarioRepository.findByAtivoFalse();
+				}
+			} else {
+				funcionarios = funcionarioRepository.findAll();
+			}
 			ArrayList<JSONObject> jsonFuncionarios = new ArrayList<JSONObject>();
 			for(Funcionario funcionario : funcionarios) {
 				JSONObject jsonFuncionario = getJSONFuncionario(funcionario);
