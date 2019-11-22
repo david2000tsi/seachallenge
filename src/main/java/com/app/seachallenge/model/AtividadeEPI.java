@@ -30,7 +30,7 @@ private static final long serialVersionUID = 1L;
 	@JoinColumn
 	private EPI epi;
 	
-	private String numeroCA;
+	private long numeroCA;
 
 	public long getId() {
 		return id;
@@ -56,11 +56,11 @@ private static final long serialVersionUID = 1L;
 		this.epi = epi;
 	}
 
-	public String getNumeroCA() {
+	public long getNumeroCA() {
 		return numeroCA;
 	}
 
-	public void setNumeroCA(String numeroCA) {
+	public void setNumeroCA(long numeroCA) {
 		this.numeroCA = numeroCA;
 	}
 }
