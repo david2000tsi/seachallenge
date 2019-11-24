@@ -11,16 +11,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.sun.istack.Nullable;
+
 @Entity
-@Table(name = "tb_atividadeepi")
-@SequenceGenerator(name = "sq_atividadeepi", initialValue = 1)
-public class AtividadeEPI implements Serializable {
+@Table(name = "tb_funcionarioatividadeepi")
+@SequenceGenerator(name = "sq_funcionarioatividadeepi", initialValue = 1)
+public class FuncionarioAtividadeEPI implements Serializable {
 
 private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_atividadeepi")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_funcionarioatividadeepi")
 	private long id;
+	
+	@ManyToOne
+	@JoinColumn
+	private Funcionario funcionario;
 	
 	@ManyToOne
 	@JoinColumn
@@ -28,8 +34,10 @@ private static final long serialVersionUID = 1L;
 	
 	@ManyToOne
 	@JoinColumn
+	@Nullable
 	private EPI epi;
 	
+	@Nullable
 	private long numeroCA;
 
 	public long getId() {
@@ -38,6 +46,14 @@ private static final long serialVersionUID = 1L;
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 
 	public Atividade getAtividade() {

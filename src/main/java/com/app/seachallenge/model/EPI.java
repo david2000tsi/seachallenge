@@ -26,7 +26,7 @@ public class EPI implements Serializable {
 	private String nome;
 	
 	@OneToMany(mappedBy = "epi", cascade = CascadeType.ALL)
-	private List<AtividadeEPI> atividadeEpis;
+	private List<FuncionarioAtividadeEPI> funcionarioAtividadeEpis;
 
 	public long getId() {
 		return id;
@@ -44,11 +44,11 @@ public class EPI implements Serializable {
 		this.nome = nome;
 	}
 
-	public List<AtividadeEPI> getAtividadeEpis() {
-		return atividadeEpis;
+	public List<FuncionarioAtividadeEPI> getFuncionarioAtividadeEpis() {
+		return funcionarioAtividadeEpis;
 	}
 
-	public void setAtividadeEpis(List<AtividadeEPI> atividadeEpis) {
-		this.atividadeEpis = atividadeEpis;
+	public void setFuncionarioAtividadeEpis(List<FuncionarioAtividadeEPI> funcionarioAtividadeEpis) {
+		this.funcionarioAtividadeEpis = funcionarioAtividadeEpis;
 	}
 }

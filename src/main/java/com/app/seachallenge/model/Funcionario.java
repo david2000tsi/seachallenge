@@ -38,7 +38,7 @@ public class Funcionario implements Serializable {
 	private byte[] atestadoSaude;
 	
 	@OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
-	private List<FuncionarioAtividade> funcionarioAtividades;
+	private List<FuncionarioAtividadeEPI> funcionarioAtividadeEPIs;
 	
 	@ManyToOne
 	@JoinColumn
@@ -116,11 +116,11 @@ public class Funcionario implements Serializable {
 		this.cargo = cargo;
 	}
 
-	public List<FuncionarioAtividade> getFuncionarioAtividades() {
-		return funcionarioAtividades;
+	public List<FuncionarioAtividadeEPI> getFuncionarioAtividadeEPIs() {
+		return funcionarioAtividadeEPIs;
 	}
 
-	public void setFuncionarioAtividades(List<FuncionarioAtividade> funcionarioAtividades) {
-		this.funcionarioAtividades = funcionarioAtividades;
+	public void setFuncionarioAtividadeEPIs(List<FuncionarioAtividadeEPI> funcionarioAtividadeEPIs) {
+		this.funcionarioAtividadeEPIs = funcionarioAtividadeEPIs;
 	}
 }

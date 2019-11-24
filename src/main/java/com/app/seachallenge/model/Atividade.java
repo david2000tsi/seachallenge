@@ -26,10 +26,7 @@ public class Atividade implements Serializable {
 	private String nome;
 	
 	@OneToMany(mappedBy = "atividade", cascade = CascadeType.ALL)
-	private List<FuncionarioAtividade> funcionarioAtividades;
-	
-	@OneToMany(mappedBy = "atividade", cascade = CascadeType.ALL)
-	private List<AtividadeEPI> atividadeEpis;
+	private List<FuncionarioAtividadeEPI> funcionarioAtividadeEPIs;
 
 	public long getId() {
 		return id;
@@ -47,19 +44,11 @@ public class Atividade implements Serializable {
 		this.nome = nome;
 	}
 
-	public List<FuncionarioAtividade> getFuncionarioAtividades() {
-		return funcionarioAtividades;
+	public List<FuncionarioAtividadeEPI> getFuncionarioAtividadeEPIs() {
+		return funcionarioAtividadeEPIs;
 	}
 
-	public void setFuncionarioAtividades(List<FuncionarioAtividade> funcionarioAtividades) {
-		this.funcionarioAtividades = funcionarioAtividades;
-	}
-	
-	public List<AtividadeEPI> getAtividadeEpis() {
-		return atividadeEpis;
-	}
-
-	public void setAtividadeEpis(List<AtividadeEPI> atividadeEpis) {
-		this.atividadeEpis = atividadeEpis;
+	public void setFuncionarioAtividadeEPIs(List<FuncionarioAtividadeEPI> funcionarioAtividadeEPIs) {
+		this.funcionarioAtividadeEPIs = funcionarioAtividadeEPIs;
 	}
 }
