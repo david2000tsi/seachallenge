@@ -1,6 +1,7 @@
 package com.app.seachallenge.controller;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -50,6 +51,28 @@ public class FuncionarioController extends UtilsController {
 	@Autowired
 	private FuncionarioAtividadeEPIRepository funcionarioAtividadeEPIRepository;
 	
+	public byte[] fromStringToByte(String image) {
+		try {
+			if(image != null && image.length() > 0) {
+				return Base64.getDecoder().decode(image);
+			}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		return null;
+	}
+	
+	public String fromByteToString(byte[] image) {
+		try {
+			if(image != null && image.length > 0) {
+				return Base64.getEncoder().encodeToString(image);
+			}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		return null;
+	}
+	
 	@RequestMapping(value = "/funcionario/save", method = RequestMethod.POST)
 	public String save(@RequestParam("data") String data) {
 		String result = getErrorJson(-1, "SAVE_FUNCIONARIO_NOT_FINISHED");
@@ -64,7 +87,7 @@ public class FuncionarioController extends UtilsController {
 			funcionarioDTO.setSexo(jsonFuncionario.getString("sexo"));
 			funcionarioDTO.setDataNascimento(new Date(jsonFuncionario.getString("dataNascimento")));
 			funcionarioDTO.setAtivo(jsonFuncionario.getBoolean("ativo"));
-			funcionarioDTO.setAtestadoSaude(null);
+			funcionarioDTO.setAtestadoSaude(fromStringToByte(jsonFuncionario.getString("atestadoSaude")));
 			
 			JSONObject jsonCargo = jsonFuncionario.getJSONObject("cargo");
 			long idCargo = jsonCargo.getInt("id");
@@ -157,7 +180,7 @@ public class FuncionarioController extends UtilsController {
 		jsonFuncionario.put("sexo", funcionario.getSexo());
 		jsonFuncionario.put("dataNascimento", funcionario.getDataNascimento());
 		jsonFuncionario.put("ativo", funcionario.isAtivo());
-		jsonFuncionario.put("atestadoSaude", funcionario.getAtestadoSaude());
+		jsonFuncionario.put("atestadoSaude", fromByteToString(funcionario.getAtestadoSaude()));
 
 		jsonFuncionario.put("cargo_id", funcionario.getCargo().getId());
 		jsonFuncionario.put("cargo_nome", funcionario.getCargo().getNome());
@@ -313,7 +336,7 @@ public class FuncionarioController extends UtilsController {
 				funcionarioDTO.setSexo(jsonFuncionario.getString("sexo"));
 				funcionarioDTO.setDataNascimento(new Date(jsonFuncionario.getString("dataNascimento")));
 				funcionarioDTO.setAtivo(jsonFuncionario.getBoolean("ativo"));
-				funcionarioDTO.setAtestadoSaude(null);
+				funcionarioDTO.setAtestadoSaude(fromStringToByte(jsonFuncionario.getString("atestadoSaude")));
 				
 				JSONObject jsonCargo = jsonFuncionario.getJSONObject("cargo");
 				long idCargo = jsonCargo.getInt("id");
