@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_epi")
-@SequenceGenerator(name = "sq_epi", initialValue = 1)
+@SequenceGenerator(name = "sq_epi", initialValue = 1, allocationSize = 1)
 public class EPI implements Serializable {
 
 	private static final long serialVersionUID = 1L;

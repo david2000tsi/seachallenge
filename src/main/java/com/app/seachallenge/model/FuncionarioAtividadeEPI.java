@@ -15,7 +15,7 @@ import com.sun.istack.Nullable;
 
 @Entity
 @Table(name = "tb_funcionarioatividadeepi")
-@SequenceGenerator(name = "sq_funcionarioatividadeepi", initialValue = 1)
+@SequenceGenerator(name = "sq_funcionarioatividadeepi", initialValue = 1, allocationSize = 1)
 public class FuncionarioAtividadeEPI implements Serializable {
 
 private static final long serialVersionUID = 1L;

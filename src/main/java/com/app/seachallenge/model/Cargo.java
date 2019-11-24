@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_cargo")
-@SequenceGenerator(name = "sq_cargo", initialValue = 1)
+@SequenceGenerator(name = "sq_cargo", initialValue = 1, allocationSize = 1)
 public class Cargo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
