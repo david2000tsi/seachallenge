@@ -1,6 +1,7 @@
 package com.app.seachallenge.controller;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class EPIController extends UtilsController {
 	@Autowired
 	private EPIRepository epiRepository;
 	
-	@RequestMapping(value = "/getepis")
+	@RequestMapping(value = "/epi/get/all")
 	public String getEpiss() {
 		String result = "";
 		
@@ -34,9 +35,35 @@ public class EPIController extends UtilsController {
 			result = response.toString();
 		} catch(Exception e) {
 			e.printStackTrace();
-			result = getErrorJson(-1, "GET_EPIS_ERR");
+			result = getMsgJson(-1, "GET_EPIS_ERR");
 		}
 		
 		return result;
+	}
+	
+	public boolean existsEPI(String nomeEPI) {
+		boolean result = false;
+		try {
+			Optional<EPI> epi = epiRepository.findByNome(nomeEPI);
+			result = epi.isPresent();
+		} catch(Exception e) {
+			e.printStackTrace();
+			result = false;
+		}
+		
+		return result;
+	}
+	
+	public void createEPI(String nomeEPI) {
+		try {
+			if(existsEPI(nomeEPI) == false) {
+				EPI epi = new EPI();
+				epi.setNome(nomeEPI);
+				
+				epiRepository.save(epi);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

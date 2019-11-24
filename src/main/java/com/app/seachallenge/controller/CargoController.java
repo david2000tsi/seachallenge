@@ -1,6 +1,7 @@
 package com.app.seachallenge.controller;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class CargoController extends UtilsController {
 	@Autowired
 	private CargoRepository cargoRepository;
 
-	@RequestMapping(value = "/getcargos")
+	@RequestMapping(value = "/cargo/get/all")
 	public String getCargos() {
 		String result = "";
 		
@@ -34,9 +35,35 @@ public class CargoController extends UtilsController {
 			result = response.toString();
 		} catch(Exception e) {
 			e.printStackTrace();
-			result = getErrorJson(-1, "GET_CARGOS_ERR");
+			result = getMsgJson(-1, "GET_CARGOS_ERR");
 		}
 		
 		return result;
+	}
+	
+	public boolean existsCargo(String nomeCargo) {
+		boolean result = false;
+		try {
+			Optional<Cargo> cargo = cargoRepository.findByNome(nomeCargo);
+			result = cargo.isPresent();
+		} catch(Exception e) {
+			e.printStackTrace();
+			result = false;
+		}
+		
+		return result;
+	}
+	
+	public void createCargo(String nomeCargo) {
+		try {
+			if(existsCargo(nomeCargo) == false) {
+				Cargo cargo = new Cargo();
+				cargo.setNome(nomeCargo);
+				
+				cargoRepository.save(cargo);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

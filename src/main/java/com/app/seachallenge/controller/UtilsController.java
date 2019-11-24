@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 public class UtilsController {
 	
-	public static String getErrorJson(int code, String message) {
+	public static String getMsgJson(int code, String message) {
 		String result = "";
 		try {
 			JSONObject error = new JSONObject();

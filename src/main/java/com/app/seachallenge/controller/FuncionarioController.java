@@ -75,7 +75,7 @@ public class FuncionarioController extends UtilsController {
 	
 	@RequestMapping(value = "/funcionario/save", method = RequestMethod.POST)
 	public String save(@RequestParam("data") String data) {
-		String result = getErrorJson(-1, "SAVE_FUNCIONARIO_NOT_FINISHED");
+		String result = getMsgJson(-1, "SAVE_FUNCIONARIO_NOT_FINISHED");
 		boolean doRollback = false;
 		try {
 			JSONObject json = new JSONObject(data);
@@ -124,13 +124,13 @@ public class FuncionarioController extends UtilsController {
 					}
 					
 					if(epiInformed && optionalEPI.isPresent() == false) {
-						result = getErrorJson(-1, "SAVE_FUNCIONARIO_NO_EPI");
+						result = getMsgJson(-1, "SAVE_FUNCIONARIO_NO_EPI");
 						doRollback = true;
 					} else if(epiDataError) {
-						result = getErrorJson(-1, "SAVE_FUNCIONARIO_NO_NUM_CA");
+						result = getMsgJson(-1, "SAVE_FUNCIONARIO_NO_NUM_CA");
 						doRollback = true;
 					} else if(optionalAtividade.isPresent() == false) {
-						result = getErrorJson(-1, "SAVE_FUNCIONARIO_NO_ATIVIDADE");
+						result = getMsgJson(-1, "SAVE_FUNCIONARIO_NO_ATIVIDADE");
 						doRollback = true;
 					} else {
 						Atividade atividade = optionalAtividade.get();
@@ -159,13 +159,13 @@ public class FuncionarioController extends UtilsController {
 					throw new Exception("SAVE_FUNCIONARIO_BAD_PROCESSING");
 				}
 				
-				result = getErrorJson(0, "SAVE_FUNCIONARIO_SUCCESS");
+				result = getMsgJson(0, "SAVE_FUNCIONARIO_SUCCESS");
 			} else {
-				result = getErrorJson(-1, "SAVE_FUNCIONARIO_INVALID_DATA");
+				result = getMsgJson(-1, "SAVE_FUNCIONARIO_INVALID_DATA");
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
-			result = getErrorJson(-1, "SAVE_FUNCIONARIO_ERR");
+			result = getMsgJson(-1, "SAVE_FUNCIONARIO_ERR");
 		}
 
 		return result;
@@ -228,7 +228,7 @@ public class FuncionarioController extends UtilsController {
 			result = response.toString();
 		} catch(Exception e) {
 			e.printStackTrace();
-			result = getErrorJson(-1, "GET_ALL_FUNCIONARIO_ERR");
+			result = getMsgJson(-1, "GET_ALL_FUNCIONARIO_ERR");
 		}
 		
 		return result;
@@ -239,7 +239,7 @@ public class FuncionarioController extends UtilsController {
 		String result = "";
 		try {
 			if(id < 1L) {
-				return getErrorJson(-1, "GET_FUNCIONARIO_BAD_PARAM");
+				return getMsgJson(-1, "GET_FUNCIONARIO_BAD_PARAM");
 			}
 			Optional<Funcionario> optionalFuncionario = funcionarioRepository.findById(id);
 			if(optionalFuncionario.isPresent()) {
@@ -249,11 +249,11 @@ public class FuncionarioController extends UtilsController {
 				response.put("funcionario", jsonFuncionario);
 				result = response.toString();
 			} else {
-				result = getErrorJson(-1, "GET_FUNCIONARIO_NO_DATA");
+				result = getMsgJson(-1, "GET_FUNCIONARIO_NO_DATA");
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
-			result = getErrorJson(-1, "GET_FUNCIONARIO_ERR");
+			result = getMsgJson(-1, "GET_FUNCIONARIO_ERR");
 		}
 		
 		return result;
@@ -315,14 +315,14 @@ public class FuncionarioController extends UtilsController {
 		boolean doRollback = false;
 		try {
 			if(data == null || data.length() == 0) {
-				return getErrorJson(-1, "UPDATE_FUNCIONARIO_BAD_PARAM");
+				return getMsgJson(-1, "UPDATE_FUNCIONARIO_BAD_PARAM");
 			}
 			
 			JSONObject json = new JSONObject(data);
 			JSONObject jsonFuncionario = json.getJSONObject("funcionario");
 			long id = jsonFuncionario.getInt("id");
 			if(id < 1L) {
-				return getErrorJson(-1, "UPDATE_FUNCIONARIO_BAD_PARAM");
+				return getMsgJson(-1, "UPDATE_FUNCIONARIO_BAD_PARAM");
 			}
 
 			Optional<Funcionario> optionalFuncionario = funcionarioRepository.findById(id);
@@ -387,13 +387,13 @@ public class FuncionarioController extends UtilsController {
 						}
 						
 						if(epiInformed && optionalEPI.isPresent() == false) {
-							result = getErrorJson(-1, "UPDATE_FUNCIONARIO_NO_EPI");
+							result = getMsgJson(-1, "UPDATE_FUNCIONARIO_NO_EPI");
 							doRollback = true;
 						} else if(epiDataError) {
-							result = getErrorJson(-1, "UPDATE_FUNCIONARIO_NO_NUM_CA");
+							result = getMsgJson(-1, "UPDATE_FUNCIONARIO_NO_NUM_CA");
 							doRollback = true;
 						} else if(optionalAtividade.isPresent() == false) {
-							result = getErrorJson(-1, "UPDATE_FUNCIONARIO_NO_ATIVIDADE");
+							result = getMsgJson(-1, "UPDATE_FUNCIONARIO_NO_ATIVIDADE");
 							doRollback = true;
 						} else {
 							Atividade atividade = optionalAtividade.get();
@@ -436,14 +436,14 @@ public class FuncionarioController extends UtilsController {
 						throw new Exception("UPDATE_FUNCIONARIO_BAD_PROCESSING");
 					}
 					
-					result = getErrorJson(0, "UPDATE_FUNCIONARIO_SUCCESS");
+					result = getMsgJson(0, "UPDATE_FUNCIONARIO_SUCCESS");
 				}
 			} else {
-				result = getErrorJson(-1, "UPDATE_FUNCIONARIO_NO_DATA");
+				result = getMsgJson(-1, "UPDATE_FUNCIONARIO_NO_DATA");
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
-			result = getErrorJson(-1, "UPDATE_FUNCIONARIO_ERR");
+			result = getMsgJson(-1, "UPDATE_FUNCIONARIO_ERR");
 		}
 		
 		return result;
@@ -454,7 +454,7 @@ public class FuncionarioController extends UtilsController {
 		String result = "";
 		try {
 			if(id < 1L) {
-				return getErrorJson(-1, "DELETE_FUNCIONARIO_BAD_PARAM");
+				return getMsgJson(-1, "DELETE_FUNCIONARIO_BAD_PARAM");
 			}
 			Optional<Funcionario> optionalFuncionario = funcionarioRepository.findById(id);
 			if(optionalFuncionario.isPresent()) {
@@ -467,13 +467,13 @@ public class FuncionarioController extends UtilsController {
 				
 				funcionarioRepository.delete(funcionario);
 				
-				result = getErrorJson(0, "DELETE_FUNCIONARIO_SUCCESS");
+				result = getMsgJson(0, "DELETE_FUNCIONARIO_SUCCESS");
 			} else {
-				result = getErrorJson(-1, "DELETE_FUNCIONARIO_NO_DATA");
+				result = getMsgJson(-1, "DELETE_FUNCIONARIO_NO_DATA");
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
-			result = getErrorJson(-1, "DELETE_FUNCIONARIO_ERR");
+			result = getMsgJson(-1, "DELETE_FUNCIONARIO_ERR");
 		}
 		
 		return result;

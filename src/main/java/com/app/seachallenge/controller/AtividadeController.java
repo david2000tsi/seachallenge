@@ -1,6 +1,7 @@
 package com.app.seachallenge.controller;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class AtividadeController extends UtilsController {
 	@Autowired
 	private AtividadeRepository atividadeRepository;
 
-	@RequestMapping(value = "/getatividades")
+	@RequestMapping(value = "/atividade/get/all")
 	public String getAtividades() {
 		String result = "";
 		
@@ -34,9 +35,35 @@ public class AtividadeController extends UtilsController {
 			result = response.toString();
 		} catch(Exception e) {
 			e.printStackTrace();
-			result = getErrorJson(-1, "GET_ATIVIDADES_ERR");
+			result = getMsgJson(-1, "GET_ATIVIDADES_ERR");
 		}
 		
 		return result;
+	}
+	
+	public boolean existsAtividade(String nomeAtividade) {
+		boolean result = false;
+		try {
+			Optional<Atividade> atividade = atividadeRepository.findByNome(nomeAtividade);
+			result = atividade.isPresent();
+		} catch(Exception e) {
+			e.printStackTrace();
+			result = false;
+		}
+		
+		return result;
+	}
+	
+	public void createAtividade(String nomeAtividade) {
+		try {
+			if(existsAtividade(nomeAtividade) == false) {
+				Atividade atividade = new Atividade();
+				atividade.setNome(nomeAtividade);
+				
+				atividadeRepository.save(atividade);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

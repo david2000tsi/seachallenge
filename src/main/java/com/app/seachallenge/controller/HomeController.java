@@ -11,7 +11,7 @@ public class HomeController implements ErrorController {
 
 	@RequestMapping(value=PATH)
 	public String error() {
-		return UtilsController.getErrorJson(-999, "BAD_REQUEST_ERR");
+		return UtilsController.getMsgJson(-999, "BAD_REQUEST_ERR");
 	}
 	
 	@Override
