@@ -1,0 +1,241 @@
+{
+	"info": {
+		"_postman_id": "81154ffb-0f41-4503-8020-b4fd6ac63867",
+		"name": "SEAChallenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateBasicData",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/create_basic_data",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"create_basic_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FuncionarioGetById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/funcionario/get/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"funcionario",
+						"get",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FuncionarioGetAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/funcionario/get/all",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"funcionario",
+						"get",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CargoGetAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/cargo/get/all",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"cargo",
+						"get",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AtividadeGetAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/atividade/get/all",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"atividade",
+						"get",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EPIGetAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/epi/get/all",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"epi",
+						"get",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FuncionarioGetAllActive",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/funcionario/get/all/ativo",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"funcionario",
+						"get",
+						"all",
+						"ativo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FuncionarioGetAllInactive",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/funcionario/get/all/inativo",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"funcionario",
+						"get",
+						"all",
+						"inativo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FuncionarioSave",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/funcionario/save?data=%7B%0A%20%20%22funcionario%22%3A%20%7B%0A%20%20%20%20%22nome%22%3A%20%22David%20Alves%22%2C%0A%20%20%20%20%22cpf%22%3A%20%22111.222.333-99%22%2C%0A%20%20%20%20%22rg%22%3A%20%229876599%22%2C%0A%20%20%20%20%22sexo%22%3A%20%22M%22%2C%0A%20%20%20%20%22dataNascimento%22%3A%20%2231%2F12%2F1999%22%2C%0A%20%20%20%20%22ativo%22%3A%20true%2C%0A%20%20%20%20%22atestadoSaude%22%3A%20%22dsjvhasdh347823h49f3847t3492f364tfg367g7tf92643f%22%2C%0A%20%20%20%20%22cargo%22%3A%20%7B%0A%20%20%20%20%20%20%22id%22%3A%201%0A%20%20%20%20%7D%2C%0A%20%20%20%20%22atividadeepis%22%3A%20%5B%0A%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%22atividade_id%22%3A%201%2C%0A%20%20%20%20%20%20%20%20%22epi_id%22%3A%201%2C%0A%20%20%20%20%20%20%20%20%22numeroCA%22%3A%2012%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%22atividade_id%22%3A%201%2C%0A%20%20%20%20%20%20%20%20%22epi_id%22%3A%202%2C%0A%20%20%20%20%20%20%20%20%22numeroCA%22%3A%2013%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%22atividade_id%22%3A%202%2C%0A%20%20%20%20%20%20%20%20%22epi_id%22%3A%202%2C%0A%20%20%20%20%20%20%20%20%22numeroCA%22%3A%2019%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%20%20%7D%0A%7D",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"funcionario",
+						"save"
+					],
+					"query": [
+						{
+							"key": "data",
+							"value": "%7B%0A%20%20%22funcionario%22%3A%20%7B%0A%20%20%20%20%22nome%22%3A%20%22David%20Alves%22%2C%0A%20%20%20%20%22cpf%22%3A%20%22111.222.333-99%22%2C%0A%20%20%20%20%22rg%22%3A%20%229876599%22%2C%0A%20%20%20%20%22sexo%22%3A%20%22M%22%2C%0A%20%20%20%20%22dataNascimento%22%3A%20%2231%2F12%2F1999%22%2C%0A%20%20%20%20%22ativo%22%3A%20true%2C%0A%20%20%20%20%22atestadoSaude%22%3A%20%22dsjvhasdh347823h49f3847t3492f364tfg367g7tf92643f%22%2C%0A%20%20%20%20%22cargo%22%3A%20%7B%0A%20%20%20%20%20%20%22id%22%3A%201%0A%20%20%20%20%7D%2C%0A%20%20%20%20%22atividadeepis%22%3A%20%5B%0A%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%22atividade_id%22%3A%201%2C%0A%20%20%20%20%20%20%20%20%22epi_id%22%3A%201%2C%0A%20%20%20%20%20%20%20%20%22numeroCA%22%3A%2012%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%22atividade_id%22%3A%201%2C%0A%20%20%20%20%20%20%20%20%22epi_id%22%3A%202%2C%0A%20%20%20%20%20%20%20%20%22numeroCA%22%3A%2013%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%22atividade_id%22%3A%202%2C%0A%20%20%20%20%20%20%20%20%22epi_id%22%3A%202%2C%0A%20%20%20%20%20%20%20%20%22numeroCA%22%3A%2019%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%20%20%7D%0A%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FuncionarioUpdate",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/funcionario/update?data=%7B%0A%20%20%22funcionario%22%3A%20%7B%0A%20%20%20%20%22id%22%3A%201%2C%0A%20%20%20%20%22nome%22%3A%20%22David%20Alves%22%2C%0A%20%20%20%20%22cpf%22%3A%20%22111.222.333-44%22%2C%0A%20%20%20%20%22rg%22%3A%20%229876543%22%2C%0A%20%20%20%20%22sexo%22%3A%20%22M%22%2C%0A%20%20%20%20%22dataNascimento%22%3A%20%2201%2F01%2F2000%22%2C%0A%20%20%20%20%22ativo%22%3A%20true%2C%0A%20%20%20%20%22atestadoSaude%22%3A%20%22dsjvhasdh347823h49f3847t3492f364tfg367g7tf92643f%22%2C%0A%20%20%20%20%22cargo%22%3A%20%7B%0A%20%20%20%20%20%20%22id%22%3A%201%0A%20%20%20%20%7D%2C%0A%20%20%20%20%22atividadeepis%22%3A%20%5B%0A%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%22atividade_id%22%3A%201%2C%0A%20%20%20%20%20%20%20%20%22epi_id%22%3A%201%2C%0A%20%20%20%20%20%20%20%20%22numeroCA%22%3A%2012355%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%22atividade_id%22%3A%201%2C%0A%20%20%20%20%20%20%20%20%22epi_id%22%3A%202%2C%0A%20%20%20%20%20%20%20%20%22numeroCA%22%3A%2012355%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%22atividade_id%22%3A%201%2C%0A%20%20%20%20%20%20%20%20%22epi_id%22%3A%203%2C%0A%20%20%20%20%20%20%20%20%22numeroCA%22%3A%2012355%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%20%20%7D%0A%7D",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"",
+						"funcionario",
+						"update"
+					],
+					"query": [
+						{
+							"key": "data",
+							"value": "%7B%0A%20%20%22funcionario%22%3A%20%7B%0A%20%20%20%20%22id%22%3A%201%2C%0A%20%20%20%20%22nome%22%3A%20%22David%20Alves%22%2C%0A%20%20%20%20%22cpf%22%3A%20%22111.222.333-44%22%2C%0A%20%20%20%20%22rg%22%3A%20%229876543%22%2C%0A%20%20%20%20%22sexo%22%3A%20%22M%22%2C%0A%20%20%20%20%22dataNascimento%22%3A%20%2201%2F01%2F2000%22%2C%0A%20%20%20%20%22ativo%22%3A%20true%2C%0A%20%20%20%20%22atestadoSaude%22%3A%20%22dsjvhasdh347823h49f3847t3492f364tfg367g7tf92643f%22%2C%0A%20%20%20%20%22cargo%22%3A%20%7B%0A%20%20%20%20%20%20%22id%22%3A%201%0A%20%20%20%20%7D%2C%0A%20%20%20%20%22atividadeepis%22%3A%20%5B%0A%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%22atividade_id%22%3A%201%2C%0A%20%20%20%20%20%20%20%20%22epi_id%22%3A%201%2C%0A%20%20%20%20%20%20%20%20%22numeroCA%22%3A%2012355%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%22atividade_id%22%3A%201%2C%0A%20%20%20%20%20%20%20%20%22epi_id%22%3A%202%2C%0A%20%20%20%20%20%20%20%20%22numeroCA%22%3A%2012355%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%22atividade_id%22%3A%201%2C%0A%20%20%20%20%20%20%20%20%22epi_id%22%3A%203%2C%0A%20%20%20%20%20%20%20%20%22numeroCA%22%3A%2012355%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%5D%0A%20%20%7D%0A%7D"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FuncionarioDelete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/funcionario/delete/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"funcionario",
+						"delete",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
