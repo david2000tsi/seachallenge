@@ -67,3 +67,9 @@ https://jsoneditoronline.org/
 Codificador de strings online:
 
 https://onlinestringtools.com/url-encode-string
+
+### A fazer:
+
+Implementar uma pequena aplicação para interagir com a aplicação principal a fim de testes;
+
+Utilizar docker para montar os ambientes de aplicação e banco de dados.
