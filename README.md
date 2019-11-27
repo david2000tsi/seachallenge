@@ -2,7 +2,29 @@
 
 Implemetação do back-end utilizando Java com base nos dados informados na imagem do font-end.
 
-### Rotas disponíveis:
+### Criação do container de banco de dados
+
+Dentro da pasta raiz do projeto, executar o seguinte comando para criar o container postgres:
+
+```
+docker-compose up --build -d
+```
+
+### Compilação da aplicação
+
+Abrir um terminal dentro do diretório do código fonte do projeto 'source/';
+
+Compilar:
+
+```mvn clean install```
+
+Executar:
+
+```
+java -jar target/seachallenge-0.0.1-SNAPSHOT.jar
+```
+
+### Rotas disponíveis
 
 ```
 GET     /create_basic_data
@@ -58,7 +80,7 @@ Deletar o funcionário pelo id: '/funcionario/delete/1';
 
 Obs: Após a primeira rodade de teste caso necessário testar deverá ser atualizado os ids dentro dos pacotes json para funcionar novamente.
 
-### Links Úteis:
+### Links Úteis
 
 Editor de json online:
 
@@ -68,7 +90,7 @@ Codificador de strings online:
 
 https://onlinestringtools.com/url-encode-string
 
-### A fazer:
+### A fazer
 
 Implementar uma pequena aplicação para interagir com a aplicação principal a fim de testes;
 
