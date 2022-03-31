@@ -1,7 +1,7 @@
 package com.app.seachallenge.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -48,7 +48,7 @@ public class Funcionario implements Serializable {
 	private String sexo;
 	
 	@Column(name = "data_nascimento")
-	private Date dataNascimento;
+	private LocalDate dataNascimento;
 	
 	@Column(name = "ativo")
 	private boolean ativo;

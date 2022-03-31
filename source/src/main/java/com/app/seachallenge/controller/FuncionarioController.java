@@ -1,8 +1,6 @@
 package com.app.seachallenge.controller;
 
 import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,20 +19,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.seachallenge.dto.FuncionarioDTO;
 import com.app.seachallenge.model.Atividade;
-import com.app.seachallenge.model.FuncionarioAtividadeEPI;
 import com.app.seachallenge.model.Cargo;
 import com.app.seachallenge.model.EPI;
 import com.app.seachallenge.model.Funcionario;
-import com.app.seachallenge.repository.FuncionarioAtividadeEPIRepository;
+import com.app.seachallenge.model.FuncionarioAtividadeEPI;
 import com.app.seachallenge.repository.AtividadeRepository;
 import com.app.seachallenge.repository.CargoRepository;
 import com.app.seachallenge.repository.EPIRepository;
+import com.app.seachallenge.repository.FuncionarioAtividadeEPIRepository;
 import com.app.seachallenge.repository.FuncionarioRepository;
+import com.app.seachallenge.util.Utils;
 
 @RestController
 @Component
 @Transactional
 public class FuncionarioController extends UtilsController {
+	
+	private static final String DATE_PATTERN = "dd/mm/yyyy";
 	
 	@Autowired
 	private FuncionarioRepository funcionarioRepository;
@@ -51,28 +52,6 @@ public class FuncionarioController extends UtilsController {
 	@Autowired
 	private FuncionarioAtividadeEPIRepository funcionarioAtividadeEPIRepository;
 	
-	public byte[] fromStringToByte(String image) {
-		try {
-			if(image != null && image.length() > 0) {
-				return Base64.getDecoder().decode(image);
-			}
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-		return null;
-	}
-	
-	public String fromByteToString(byte[] image) {
-		try {
-			if(image != null && image.length > 0) {
-				return Base64.getEncoder().encodeToString(image);
-			}
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-		return null;
-	}
-	
 	@RequestMapping(value = "/funcionario/save", method = RequestMethod.POST)
 	public String save(@RequestParam("data") String data) {
 		String result = getMsgJson(-1, "SAVE_FUNCIONARIO_NOT_FINISHED");
@@ -85,9 +64,9 @@ public class FuncionarioController extends UtilsController {
 			funcionarioDTO.setCpf(jsonFuncionario.getString("cpf"));
 			funcionarioDTO.setRg(jsonFuncionario.getString("rg"));
 			funcionarioDTO.setSexo(jsonFuncionario.getString("sexo"));
-			funcionarioDTO.setDataNascimento(new Date(jsonFuncionario.getString("dataNascimento")));
+			funcionarioDTO.setDataNascimento(Utils.parseDateFromString(jsonFuncionario.getString("dataNascimento"), DATE_PATTERN));
 			funcionarioDTO.setAtivo(jsonFuncionario.getBoolean("ativo"));
-			funcionarioDTO.setAtestadoSaude(fromStringToByte(jsonFuncionario.getString("atestadoSaude")));
+			funcionarioDTO.setAtestadoSaude(Utils.fromStringToByte(jsonFuncionario.getString("atestadoSaude")));
 			
 			JSONObject jsonCargo = jsonFuncionario.getJSONObject("cargo");
 			long idCargo = jsonCargo.getInt("id");
@@ -180,7 +159,7 @@ public class FuncionarioController extends UtilsController {
 		jsonFuncionario.put("sexo", funcionario.getSexo());
 		jsonFuncionario.put("dataNascimento", funcionario.getDataNascimento());
 		jsonFuncionario.put("ativo", funcionario.isAtivo());
-		jsonFuncionario.put("atestadoSaude", fromByteToString(funcionario.getAtestadoSaude()));
+		jsonFuncionario.put("atestadoSaude", Utils.fromByteToString(funcionario.getAtestadoSaude()));
 
 		jsonFuncionario.put("cargo_id", funcionario.getCargo().getId());
 		jsonFuncionario.put("cargo_nome", funcionario.getCargo().getNome());
@@ -334,9 +313,9 @@ public class FuncionarioController extends UtilsController {
 				funcionarioDTO.setCpf(jsonFuncionario.getString("cpf"));
 				funcionarioDTO.setRg(jsonFuncionario.getString("rg"));
 				funcionarioDTO.setSexo(jsonFuncionario.getString("sexo"));
-				funcionarioDTO.setDataNascimento(new Date(jsonFuncionario.getString("dataNascimento")));
+				funcionarioDTO.setDataNascimento(Utils.parseDateFromString(jsonFuncionario.getString("dataNascimento"), DATE_PATTERN));
 				funcionarioDTO.setAtivo(jsonFuncionario.getBoolean("ativo"));
-				funcionarioDTO.setAtestadoSaude(fromStringToByte(jsonFuncionario.getString("atestadoSaude")));
+				funcionarioDTO.setAtestadoSaude(Utils.fromStringToByte(jsonFuncionario.getString("atestadoSaude")));
 				
 				JSONObject jsonCargo = jsonFuncionario.getJSONObject("cargo");
 				long idCargo = jsonCargo.getInt("id");

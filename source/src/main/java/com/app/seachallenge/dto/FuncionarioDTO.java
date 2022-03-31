@@ -1,6 +1,6 @@
 package com.app.seachallenge.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import com.app.seachallenge.model.Cargo;
 import com.app.seachallenge.model.Funcionario;
@@ -18,7 +18,7 @@ public class FuncionarioDTO {
 	private String cpf;
 	private String rg;
 	private String sexo;
-	private Date dataNascimento;
+	private LocalDate dataNascimento;
 	private boolean ativo;
 	private byte[] atestadoSaude;
 	private Cargo cargo;
