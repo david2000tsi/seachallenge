@@ -8,10 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController implements ErrorController {
 	
 	private static final String PATH = "/error";
+	private static final String BAD_REQUEST_ERR = "BAD_REQUEST_ERR";
 
 	@RequestMapping(value=PATH)
 	public String error() {
-		return UtilsController.getMsgJson(-999, "BAD_REQUEST_ERR");
+		return BAD_REQUEST_ERR;
 	}
 	
 	@Override

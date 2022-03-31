@@ -1,11 +1,12 @@
 package com.app.seachallenge.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +18,11 @@ import javax.persistence.Table;
 
 import com.sun.istack.Nullable;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_funcionario")
 @SequenceGenerator(name = "sq_funcionario", initialValue = 1, allocationSize = 1)
@@ -26,101 +32,35 @@ public class Funcionario implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_funcionario")
+	@Column(name = "id")
 	private long id;
+	
+	@Column(name = "nome")
 	private String nome;
+	
+	@Column(name = "cpf")
 	private String cpf;
+	
+	@Column(name = "rg")
 	private String rg;
+	
+	@Column(name = "sexo")
 	private String sexo;
-	private Date dataNascimento;
+	
+	@Column(name = "data_nascimento")
+	private LocalDate dataNascimento;
+	
+	@Column(name = "ativo")
 	private boolean ativo;
 	
 	@Nullable
+	@Column(name = "atestado_saude")
 	private byte[] atestadoSaude;
 	
-	@OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
-	private List<FuncionarioAtividadeEPI> funcionarioAtividadeEPIs;
-	
-	@ManyToOne
-	@JoinColumn
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_cargo")
 	private Cargo cargo;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getRg() {
-		return rg;
-	}
-
-	public void setRg(String rg) {
-		this.rg = rg;
-	}
-
-	public String getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-
-	public Date getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
-	public boolean isAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
-	}
-
-	public byte[] getAtestadoSaude() {
-		return atestadoSaude;
-	}
-
-	public void setAtestadoSaude(byte[] atestadoSaude) {
-		this.atestadoSaude = atestadoSaude;
-	}
-
-	public Cargo getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(Cargo cargo) {
-		this.cargo = cargo;
-	}
-
-	public List<FuncionarioAtividadeEPI> getFuncionarioAtividadeEPIs() {
-		return funcionarioAtividadeEPIs;
-	}
-
-	public void setFuncionarioAtividadeEPIs(List<FuncionarioAtividadeEPI> funcionarioAtividadeEPIs) {
-		this.funcionarioAtividadeEPIs = funcionarioAtividadeEPIs;
-	}
+	
+	@OneToMany(mappedBy = "funcionario", fetch = FetchType.EAGER)
+	private List<FuncionarioAtividadeEPI> funcionarioAtividadeEPIs;
 }

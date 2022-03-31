@@ -3,7 +3,6 @@ package com.app.seachallenge.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +11,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_epi")
 @SequenceGenerator(name = "sq_epi", initialValue = 1, allocationSize = 1)
@@ -25,30 +29,6 @@ public class EPI implements Serializable {
 	
 	private String nome;
 	
-	@OneToMany(mappedBy = "epi", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "epi")
 	private List<FuncionarioAtividadeEPI> funcionarioAtividadeEpis;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public List<FuncionarioAtividadeEPI> getFuncionarioAtividadeEpis() {
-		return funcionarioAtividadeEpis;
-	}
-
-	public void setFuncionarioAtividadeEpis(List<FuncionarioAtividadeEPI> funcionarioAtividadeEpis) {
-		this.funcionarioAtividadeEpis = funcionarioAtividadeEpis;
-	}
 }
