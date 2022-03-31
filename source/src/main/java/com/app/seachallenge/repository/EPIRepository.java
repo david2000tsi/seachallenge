@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.app.seachallenge.model.EPI;
 
 @Repository
-public interface EPIRepository extends CrudRepository<EPI, Long>{
+public interface EPIRepository extends CrudRepository<EPI, Long> {
 
 	public Optional<EPI> findByNome(String nome);
 }

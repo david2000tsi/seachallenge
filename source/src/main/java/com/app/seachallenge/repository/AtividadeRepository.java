@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.app.seachallenge.model.Atividade;
 
 @Repository
-public interface AtividadeRepository extends CrudRepository<Atividade, Long>{
+public interface AtividadeRepository extends CrudRepository<Atividade, Long> {
 
 	public Optional<Atividade> findByNome(String nome);
 }
