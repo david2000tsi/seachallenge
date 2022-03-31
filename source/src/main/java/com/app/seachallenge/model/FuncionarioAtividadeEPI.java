@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,12 +36,12 @@ private static final long serialVersionUID = 1L;
 	@JoinColumn(name = "id_funcionario")
 	private Funcionario funcionario;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_atividade")
 	private Atividade atividade;
 	
 	@Nullable
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_epi")
 	private EPI epi;
 	

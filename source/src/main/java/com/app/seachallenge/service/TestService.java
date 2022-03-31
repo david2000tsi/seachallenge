@@ -32,6 +32,9 @@ public class TestService {
 			this.epiService.create("Viseira");
 			this.epiService.create("Luva");
 			this.epiService.create("Botina");
+		} catch(IllegalArgumentException e) {
+			TestService.log.error(e.getMessage());
+			throw e;
 		} catch(Exception e) {
 			final String msg = "Error create date";
 			TestService.log.error(msg, e);

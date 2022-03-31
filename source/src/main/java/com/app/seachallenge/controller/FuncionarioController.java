@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.seachallenge.dto.FuncionarioAtividadeEPIDTO;
 import com.app.seachallenge.dto.FuncionarioDTO;
+import com.app.seachallenge.dto.request.FuncionarioAtividadeEPIDTORequest;
 import com.app.seachallenge.service.FuncionarioService;
 
 import lombok.RequiredArgsConstructor;
@@ -27,10 +29,16 @@ public class FuncionarioController {
 	
 	private final FuncionarioService service;
 	
-	@PostMapping(value = "save")
+	@PostMapping(value = "create")
 	public ResponseEntity<FuncionarioDTO> create(@RequestBody @Valid FuncionarioDTO funcionarioDTO) {
 		FuncionarioDTO funcionario = this.service.create(funcionarioDTO);
 		return ResponseEntity.ok(funcionario);
+	}
+	
+	@PostMapping(value = "create-atividade-api")
+	public ResponseEntity<FuncionarioAtividadeEPIDTO> createAtividadeEpi(@RequestBody @Valid FuncionarioAtividadeEPIDTORequest request) {
+		FuncionarioAtividadeEPIDTO atividadeEPI = this.service.createAtividadeEPI(request);
+		return ResponseEntity.ok(atividadeEPI);
 	}
 	
 	@GetMapping(value = "get")

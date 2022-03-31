@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -57,10 +57,10 @@ public class Funcionario implements Serializable {
 	@Column(name = "atestado_saude")
 	private byte[] atestadoSaude;
 	
-	@OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
-	private List<FuncionarioAtividadeEPI> funcionarioAtividadeEPIs;
-	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_cargo")
 	private Cargo cargo;
+	
+	@OneToMany(mappedBy = "funcionario", fetch = FetchType.EAGER)
+	private List<FuncionarioAtividadeEPI> funcionarioAtividadeEPIs;
 }

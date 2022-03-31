@@ -9,7 +9,9 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.app.seachallenge.dto.FuncionarioAtividadeEPIDTO;
 import com.app.seachallenge.dto.FuncionarioDTO;
+import com.app.seachallenge.dto.request.FuncionarioAtividadeEPIDTORequest;
 import com.app.seachallenge.model.Atividade;
 import com.app.seachallenge.model.Cargo;
 import com.app.seachallenge.model.EPI;
@@ -20,7 +22,6 @@ import com.app.seachallenge.repository.CargoRepository;
 import com.app.seachallenge.repository.EPIRepository;
 import com.app.seachallenge.repository.FuncionarioAtividadeEPIRepository;
 import com.app.seachallenge.repository.FuncionarioRepository;
-import com.app.seachallenge.util.Utils;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,38 +40,19 @@ public class FuncionarioService {
 	private final FuncionarioAtividadeEPIRepository funcionarioAtividadeEPIRepository;
 	private final MapperFacade mapper = new DefaultMapperFactory.Builder().build().getMapperFacade();
 	
-	private void createAtividadeEPI(Funcionario funcionario, Long atividadeId, Long epiId, Long numeroCA) {
-		Optional<Atividade> optionalAtividade = atividadeRepository.findById(atividadeId);
-		Optional<EPI> optionalEPI = epiRepository.findById(epiId);
-		if(optionalAtividade.isPresent() && optionalEPI.isPresent()) {
-			FuncionarioAtividadeEPI funcionarioAtividadeEPI = new FuncionarioAtividadeEPI();
-			funcionarioAtividadeEPI.setFuncionario(funcionario);
-			funcionarioAtividadeEPI.setAtividade(optionalAtividade.get());
-			funcionarioAtividadeEPI.setEpi(optionalEPI.get());
-			funcionarioAtividadeEPI.setNumeroCA(numeroCA);
-			this.funcionarioAtividadeEPIRepository.save(funcionarioAtividadeEPI);
-		}
-	}
-	
 	@Transactional(rollbackOn = Exception.class)
 	public FuncionarioDTO create(FuncionarioDTO funcionarioDTO) {
 		try {
-			funcionarioDTO.setAtestadoSaude(Utils.fromStringToByte(funcionarioDTO.getAtestadoSaudeBase64()));
+			funcionarioDTO.setAtestadoSaude(funcionarioDTO.getAtestadoSaude());
 			Funcionario funcionario = this.mapper.map(funcionarioDTO, Funcionario.class);
 			
-			Optional<Cargo> optionalCargo = cargoRepository.findById(funcionarioDTO.getCargo().getId());
+			Optional<Cargo> optionalCargo = this.cargoRepository.findById(funcionarioDTO.getCargo().getId());
 			if(optionalCargo.isPresent()) {
 				Cargo cargo = optionalCargo.get();
 				funcionario.setCargo(cargo);
 			}
 			
 			funcionario = this.funcionarioRepository.save(funcionario);
-			final Funcionario fnc = funcionario;
-			funcionarioDTO.getStividadesEpis().stream().forEach(at -> {
-				this.createAtividadeEPI(fnc, at.getAtividadeId(), at.getEpiId(), at.getNumeroCA());
-			});
-			
-			funcionario = this.funcionarioRepository.findById(funcionario.getId()).get();
 			return this.mapper.map(funcionario, FuncionarioDTO.class);
 		} catch(Exception e) {
 			final String msg = "Error create funcionario";
@@ -120,21 +102,16 @@ public class FuncionarioService {
 	@Transactional(rollbackOn = Exception.class)
 	public FuncionarioDTO update(FuncionarioDTO funcionarioDTO) {
 		try {
-			funcionarioDTO.setAtestadoSaude(Utils.fromStringToByte(funcionarioDTO.getAtestadoSaudeBase64()));
+			funcionarioDTO.setAtestadoSaude(funcionarioDTO.getAtestadoSaude());
 			Funcionario funcionario = this.mapper.map(funcionarioDTO, Funcionario.class);
 			
-			Optional<Cargo> optionalCargo = cargoRepository.findById(funcionarioDTO.getCargo().getId());
+			Optional<Cargo> optionalCargo = this.cargoRepository.findById(funcionarioDTO.getCargo().getId());
 			if(optionalCargo.isPresent()) {
 				Cargo cargo = optionalCargo.get();
 				funcionario.setCargo(cargo);
 			}
 			
 			funcionario = this.funcionarioRepository.save(funcionario);
-			funcionario.getFuncionarioAtividadeEPIs().stream().forEach(at -> funcionarioAtividadeEPIRepository.delete(at));
-			final Funcionario fnc = funcionario;
-			funcionarioDTO.getStividadesEpis().stream().forEach(at -> this.createAtividadeEPI(fnc, at.getAtividadeId(), at.getEpiId(), at.getNumeroCA()));
-			
-			funcionario = this.funcionarioRepository.findById(funcionario.getId()).get();
 			return this.mapper.map(funcionario, FuncionarioDTO.class);
 		} catch(Exception e) {
 			final String msg = "Error update funcionario";
@@ -162,6 +139,29 @@ public class FuncionarioService {
 			}
 		} catch(Exception e) {
 			final String msg = "Error delete funcionario";
+			FuncionarioService.log.error(msg, e);
+			throw new RuntimeException(msg);
+		}
+	}
+	
+	public FuncionarioAtividadeEPIDTO createAtividadeEPI(FuncionarioAtividadeEPIDTORequest request) {
+		try {
+			Optional<Funcionario> optionalFuncionario = this.funcionarioRepository.findById(request.getFuncionario());
+			Optional<Atividade> optionalAtividade = atividadeRepository.findById(request.getAtividade());
+			Optional<EPI> optionalEPI = epiRepository.findById(request.getEpi());
+			if(optionalFuncionario.isPresent() && optionalAtividade.isPresent() && optionalEPI.isPresent() && request.getNumeroCA().compareTo(0L) > 0) {
+				FuncionarioAtividadeEPI funcionarioAtividadeEPI = new FuncionarioAtividadeEPI();
+				funcionarioAtividadeEPI.setFuncionario(optionalFuncionario.get());
+				funcionarioAtividadeEPI.setAtividade(optionalAtividade.get());
+				funcionarioAtividadeEPI.setEpi(optionalEPI.get());
+				funcionarioAtividadeEPI.setNumeroCA(request.getNumeroCA());
+				funcionarioAtividadeEPI = this.funcionarioAtividadeEPIRepository.save(funcionarioAtividadeEPI);
+				return this.mapper.map(funcionarioAtividadeEPI, FuncionarioAtividadeEPIDTO.class);
+			} else {
+				throw new IllegalArgumentException("Not found");
+			}
+		} catch(Exception e) {
+			final String msg = "Error create funcionario/atividade/epi";
 			FuncionarioService.log.error(msg, e);
 			throw new RuntimeException(msg);
 		}

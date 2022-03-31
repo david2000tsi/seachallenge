@@ -3,7 +3,6 @@ package com.app.seachallenge.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,6 +32,6 @@ public class Atividade implements Serializable {
 	@Column(name = "nome")
 	private String nome;
 	
-	@OneToMany(mappedBy = "atividade", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "atividade")
 	private List<FuncionarioAtividadeEPI> funcionarioAtividadeEPIs;
 }
