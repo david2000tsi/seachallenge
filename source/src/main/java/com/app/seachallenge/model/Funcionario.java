@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,22 +27,36 @@ public class Funcionario implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_funcionario")
+	@Column(name = "id")
 	private long id;
+	
+	@Column(name = "nome")
 	private String nome;
+	
+	@Column(name = "cpf")
 	private String cpf;
+	
+	@Column(name = "rg")
 	private String rg;
+	
+	@Column(name = "sexo")
 	private String sexo;
+	
+	@Column(name = "data_nascimento")
 	private Date dataNascimento;
+	
+	@Column(name = "ativo")
 	private boolean ativo;
 	
 	@Nullable
+	@Column(name = "atestado_saude")
 	private byte[] atestadoSaude;
 	
 	@OneToMany(mappedBy = "funcionario", cascade = CascadeType.ALL)
 	private List<FuncionarioAtividadeEPI> funcionarioAtividadeEPIs;
 	
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "id_cargo")
 	private Cargo cargo;
 
 	public long getId() {

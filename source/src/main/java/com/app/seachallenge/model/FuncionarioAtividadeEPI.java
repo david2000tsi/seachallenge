@@ -2,6 +2,7 @@ package com.app.seachallenge.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,30 +15,32 @@ import javax.persistence.Table;
 import com.sun.istack.Nullable;
 
 @Entity
-@Table(name = "tb_funcionarioatividadeepi")
-@SequenceGenerator(name = "sq_funcionarioatividadeepi", initialValue = 1, allocationSize = 1)
+@Table(name = "tb_funcionario_atividade_epi")
+@SequenceGenerator(name = "sq_funcionario_atividade_epi", initialValue = 1, allocationSize = 1)
 public class FuncionarioAtividadeEPI implements Serializable {
 
 private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_funcionarioatividadeepi")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_funcionario_atividade_epi")
+	@Column(name = "id")
 	private long id;
 	
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "id_funcionario")
 	private Funcionario funcionario;
 	
 	@ManyToOne
-	@JoinColumn
+	@JoinColumn(name = "id_atividade")
 	private Atividade atividade;
 	
-	@ManyToOne
-	@JoinColumn
 	@Nullable
+	@ManyToOne
+	@JoinColumn(name = "id_epi")
 	private EPI epi;
 	
 	@Nullable
+	@Column(name = "numero_ca")
 	private long numeroCA;
 
 	public long getId() {

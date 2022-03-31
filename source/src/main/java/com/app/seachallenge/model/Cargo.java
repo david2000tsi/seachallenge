@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,8 +22,10 @@ public class Cargo implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_cargo")
+	@Column(name = "id")
 	private long id;
 	
+	@Column(name = "nome")
 	private String nome;
 	
 	@OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL)
