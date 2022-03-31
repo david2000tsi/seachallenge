@@ -1,69 +1,27 @@
 package com.app.seachallenge.controller;
 
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.List;
 
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.seachallenge.model.EPI;
-import com.app.seachallenge.repository.EPIRepository;
+import com.app.seachallenge.dto.EPIDTO;
+import com.app.seachallenge.service.EPIService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
-public class EPIController extends UtilsController {
+@RequestMapping("epi")
+@RequiredArgsConstructor
+public class EPIController {
 
-	@Autowired
-	private EPIRepository epiRepository;
+	private final EPIService service;
 	
-	@RequestMapping(value = "/epi/get/all")
-	public String getEpiss() {
-		String result = "";
-		
-		try {
-			Iterable<EPI> epis = epiRepository.findAll();
-			ArrayList<JSONObject> jsonEPIs = new ArrayList<JSONObject>();
-			for(EPI epi : epis) {
-				JSONObject jsonEPI = new JSONObject();
-				jsonEPI.put("id", epi.getId());
-				jsonEPI.put("nome", epi.getNome());
-				jsonEPIs.add(jsonEPI);
-			}
-			JSONObject response = new JSONObject();
-			response.put("epis", jsonEPIs);
-			result = response.toString();
-		} catch(Exception e) {
-			e.printStackTrace();
-			result = getMsgJson(-1, "GET_EPIS_ERR");
-		}
-		
-		return result;
-	}
-	
-	public boolean existsEPI(String nomeEPI) {
-		boolean result = false;
-		try {
-			Optional<EPI> epi = epiRepository.findByNome(nomeEPI);
-			result = epi.isPresent();
-		} catch(Exception e) {
-			e.printStackTrace();
-			result = false;
-		}
-		
-		return result;
-	}
-	
-	public void createEPI(String nomeEPI) {
-		try {
-			if(existsEPI(nomeEPI) == false) {
-				EPI epi = new EPI();
-				epi.setNome(nomeEPI);
-				
-				epiRepository.save(epi);
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+	@GetMapping(value = "get")
+	public ResponseEntity<List<EPIDTO>> getAll() {
+		List<EPIDTO> epis = this.service.getAll();
+		return ResponseEntity.ok(epis);
 	}
 }

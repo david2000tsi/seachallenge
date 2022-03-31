@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AtividadeDTO {
+public class CargoDTO {
 	private long id;
 	private String nome;
 }

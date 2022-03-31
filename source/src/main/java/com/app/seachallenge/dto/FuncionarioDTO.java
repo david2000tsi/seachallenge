@@ -1,9 +1,16 @@
 package com.app.seachallenge.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 
-import com.app.seachallenge.model.Cargo;
-import com.app.seachallenge.model.Funcionario;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,60 +21,34 @@ import lombok.Setter;
 @NoArgsConstructor
 public class FuncionarioDTO {
 	private long id;
+	@NotBlank
 	private String nome;
+	@NotBlank
 	private String cpf;
+	@NotBlank
 	private String rg;
+	@NotBlank
 	private String sexo;
+	@NotNull
+	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dataNascimento;
+	@NotNull
 	private boolean ativo;
 	private byte[] atestadoSaude;
-	private Cargo cargo;
+	@JsonInclude(content = JsonInclude.Include.NON_EMPTY)
+	private String atestadoSaudeBase64;
+	private CargoDTO cargo;
+	private List<AtividadesEpis> stividadesEpis;
 	
-	public FuncionarioDTO(Funcionario funcionario) {
-		id = funcionario.getId();
-		nome = funcionario.getNome();
-		cpf = funcionario.getCpf();
-		rg = funcionario.getRg();
-		sexo = funcionario.getSexo();
-		dataNascimento = funcionario.getDataNascimento();
-		ativo = funcionario.isAtivo();
-		atestadoSaude = funcionario.getAtestadoSaude();
-		cargo = funcionario.getCargo();
-	}
-	
-	public Funcionario build() {
-		Funcionario funcionario = new Funcionario();
-		funcionario.setId(id);
-		funcionario.setNome(nome);
-		funcionario.setCpf(cpf);
-		funcionario.setRg(rg);
-		funcionario.setSexo(sexo);
-		funcionario.setDataNascimento(dataNascimento);
-		funcionario.setAtivo(ativo);
-		funcionario.setAtestadoSaude(atestadoSaude);
-		funcionario.setCargo(cargo);
-		return funcionario;
-	}
-	
-	public boolean isValidToSave() {
-		if(nome == null || nome.length() == 0) {
-			return false;
-		}
-		if(cpf == null || cpf.length() == 0) {
-			return false;
-		}
-		if(rg == null || rg.length() == 0) {
-			return false;
-		}
-		if(sexo == null || sexo.length() == 0 || (sexo.equals("F") == false && sexo.equals("M") == false)) {
-			return false;
-		}
-		if(dataNascimento == null) {
-			return false;
-		}
-		if(cargo == null) {
-			return false;
-		}
-		return true;
+	@Getter
+	@Setter
+	public static class AtividadesEpis {
+		@NotNull
+		private Long atividadeId;
+		@NotNull
+		private Long epiId;
+		@NotNull
+		@Min(value = 1L)
+		private Long numeroCA;
 	}
 }

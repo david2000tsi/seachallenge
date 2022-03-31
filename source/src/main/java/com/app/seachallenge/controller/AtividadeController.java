@@ -1,69 +1,27 @@
 package com.app.seachallenge.controller;
 
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.List;
 
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.seachallenge.model.Atividade;
-import com.app.seachallenge.repository.AtividadeRepository;
+import com.app.seachallenge.dto.AtividadeDTO;
+import com.app.seachallenge.service.AtividadeService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
-public class AtividadeController extends UtilsController {
+@RequestMapping("atividade")
+@RequiredArgsConstructor
+public class AtividadeController {
 	
-	@Autowired
-	private AtividadeRepository atividadeRepository;
+	private final AtividadeService service;
 
-	@RequestMapping(value = "/atividade/get/all")
-	public String getAtividades() {
-		String result = "";
-		
-		try {
-			Iterable<Atividade> atividades = atividadeRepository.findAll();
-			ArrayList<JSONObject> jsonAtividades = new ArrayList<JSONObject>();
-			for(Atividade atividade : atividades) {
-				JSONObject jsonAtividade = new JSONObject();
-				jsonAtividade.put("id", atividade.getId());
-				jsonAtividade.put("nome", atividade.getNome());
-				jsonAtividades.add(jsonAtividade);
-			}
-			JSONObject response = new JSONObject();
-			response.put("atividades", jsonAtividades);
-			result = response.toString();
-		} catch(Exception e) {
-			e.printStackTrace();
-			result = getMsgJson(-1, "GET_ATIVIDADES_ERR");
-		}
-		
-		return result;
-	}
-	
-	public boolean existsAtividade(String nomeAtividade) {
-		boolean result = false;
-		try {
-			Optional<Atividade> atividade = atividadeRepository.findByNome(nomeAtividade);
-			result = atividade.isPresent();
-		} catch(Exception e) {
-			e.printStackTrace();
-			result = false;
-		}
-		
-		return result;
-	}
-	
-	public void createAtividade(String nomeAtividade) {
-		try {
-			if(existsAtividade(nomeAtividade) == false) {
-				Atividade atividade = new Atividade();
-				atividade.setNome(nomeAtividade);
-				
-				atividadeRepository.save(atividade);
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+	@GetMapping(value = "get")
+	public ResponseEntity<List<AtividadeDTO>> getAtividades() {
+		List<AtividadeDTO> atividades = this.service.getAll();
+		return ResponseEntity.ok(atividades);
 	}
 }
