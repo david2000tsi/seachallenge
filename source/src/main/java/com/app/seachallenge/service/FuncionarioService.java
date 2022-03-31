@@ -166,4 +166,23 @@ public class FuncionarioService {
 			throw new RuntimeException(msg);
 		}
 	}
+	
+	public boolean deleteAtividadeEPI(long id) {
+		try {
+			if(Objects.isNull(id) || id < 1L) {
+				throw new IllegalArgumentException("Invalid identifier");
+			}
+			Optional<FuncionarioAtividadeEPI> optionalFuncionarioAtividadeEPI = this.funcionarioAtividadeEPIRepository.findById(id);
+			if(optionalFuncionarioAtividadeEPI.isPresent()) {
+				this.funcionarioAtividadeEPIRepository.delete(optionalFuncionarioAtividadeEPI.get());
+				return true;
+			} else {
+				throw new IllegalArgumentException("Not found");
+			}
+		} catch(Exception e) {
+			final String msg = "Error delete funcionario";
+			FuncionarioService.log.error(msg, e);
+			throw new RuntimeException(msg);
+		}
+	}
 }

@@ -35,8 +35,8 @@ public class FuncionarioController {
 		return ResponseEntity.ok(funcionario);
 	}
 	
-	@PostMapping(value = "create-atividade-api")
-	public ResponseEntity<FuncionarioAtividadeEPIDTO> createAtividadeEpi(@RequestBody @Valid FuncionarioAtividadeEPIDTORequest request) {
+	@PostMapping(value = "create-atividade-epi")
+	public ResponseEntity<FuncionarioAtividadeEPIDTO> createAtividadeEPI(@RequestBody @Valid FuncionarioAtividadeEPIDTORequest request) {
 		FuncionarioAtividadeEPIDTO atividadeEPI = this.service.createAtividadeEPI(request);
 		return ResponseEntity.ok(atividadeEPI);
 	}
@@ -62,6 +62,12 @@ public class FuncionarioController {
 	@DeleteMapping(value = "delete/{id}")
 	public ResponseEntity<Boolean> delete(@PathVariable("id") long id) {
 		boolean delete = this.service.delete(id);
+		return ResponseEntity.ok(delete);
+	}
+	
+	@DeleteMapping(value = "delete-atividade-epi/{id}")
+	public ResponseEntity<Boolean> deleteAtividadeEPI(@PathVariable("id") long id) {
+		boolean delete = this.service.deleteAtividadeEPI(id);
 		return ResponseEntity.ok(delete);
 	}
 }

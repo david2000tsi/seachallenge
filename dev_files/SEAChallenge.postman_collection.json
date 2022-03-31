@@ -274,6 +274,26 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "FuncionarioDelete AtividadeApi",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/funcionario/delete-atividade-epi/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"funcionario",
+						"delete-atividade-epi",
+						"1"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

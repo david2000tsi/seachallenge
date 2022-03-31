@@ -38,6 +38,7 @@ POST    /funcionario/create
 POST    /funcionario/create-atividade-api
 PUT     /funcionario/update
 DELETE  /funcionario/delete/{id}
+DELETE  /funcionario/delete-atividade-epi/{id}
 ```
 
 A rota '/test/create-data' irá popular as tabelas de Cargos, Atividades e EPIs com dados básicos para testes.
@@ -70,9 +71,13 @@ Testar as outras rotas, como: '/cargo/get', '/atividade/get', '/epi/get', '/func
 
 Inserir um funcionário: '/funcionario/create' utilizando a requisição POST (body request);
 
+Inserir uma atividade/epi: '/funcionario/create-atividade-api' utilizando a requisição POST (body request);
+
 Testar a busca do funcionário pelo id: '/funcionario/get/1';
 
 Atualizar os dados do funcionário: '/funcionario/update' utilizando a requisição PUT (body request);
+
+Deletar uma atividade/epi pelo id: '/funcionario/delete-atividade-epi/1';
 
 Deletar o funcionário pelo id: '/funcionario/delete/1';
 
