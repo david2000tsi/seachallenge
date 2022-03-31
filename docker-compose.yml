@@ -1,0 +1,13 @@
+version: "2"
+services:
+    seachallenge_db:
+        container_name: seachallenge_db
+        build:
+            context: .
+            dockerfile: Dockerfile-db
+        ports:
+            - "5499:5432"
+        networks:
+            - appnetwork
+networks:
+    appnetwork:
