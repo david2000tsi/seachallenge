@@ -1,10 +1,10 @@
 ## SEAChallenge
 
-Implemetação do back-end utilizando Java com base nos dados informados na imagem do font-end.
+Implemetação do back-end utilizando Java com base nos dados informados na imagem do front-end.
 
 ### Criação do container de banco de dados
 
-Dentro da pasta raiz do projeto, executar o seguinte comando para criar o container postgres:
+Dentro da pasta raiz do projeto, executar o seguinte comando para criar o container do banco de dados postgres:
 
 ```
 docker-compose up --build -d
@@ -27,24 +27,24 @@ java -jar target/seachallenge-0.0.1-SNAPSHOT.jar
 ### Rotas disponíveis
 
 ```
-GET     /create_basic_data
-GET     /cargo/get/all
-GET     /atividade/get/all
-GET     /epi/get/all
-GET     /funcionario/get/all
-GET     /funcionario/get/all/{ativo,inativo}
+GET     /test/create-data
+GET     /cargo/get
+GET     /atividade/get
+GET     /epi/get
+GET     /funcionario/get
+GET     /funcionario/get/{ativo=true/false}
 GET     /funcionario/get/{id}
-POST    /funcionario/save
-POST    /funcionario/update
+POST    /funcionario/create
+POST    /funcionario/create-atividade-api
+PUT     /funcionario/update
 DELETE  /funcionario/delete/{id}
 ```
 
-A rota '/create_basic_data' irá popular as tabelas de Cargos, Atividades e EPIs com dados básicos para testes. Não será inserido funcionários, isso everá ser feito utilizando o json de exemplo mais explicado a seguir.
+A rota '/test/create-data' irá popular as tabelas de Cargos, Atividades e EPIs com dados básicos para testes.
 
-Para as rotas POST save e update é necessário enviar um json com os dados do funcionario, conforme pode ser visto no exemplo dentro do diretório 'dev_files'.
-O pacote json deverá estar codificado antes de ser enviado, dentro do diretório existe os exemplos do json puro e codificado para cada rota.
+Para as rotas POST/PUT (create e update) é necessário enviar um json no corpo da requisição (body request) com as informações.
 
-Existe também dentro de 'dev_files' um arquivo com as requisições salvas, onde podem ser testadas utilizando a aplicação Postman, para simular as requisições.
+Dentro do diretório 'dev_files' um arquivo com as requisições salvas, onde podem ser testadas utilizando a aplicação Postman, para simular as requisições.
 
 ### Ambiente
 
@@ -60,25 +60,21 @@ Postman 7.12.0
 
 ### Ordem de execução do teste
 
-Antes de executar a aplicação verificar os dados de conexão do banco de dados dentro do arquivo de propriedades da aplicação;
-
-Antes de iniciar a aplicação criar o banco de dados manualmente com o nome 'seachallenge';
+Antes de executar a aplicação iniciar primeiro o container do banco de dados;
 
 Iniciar a aplicação, estará disponível no endereço: 'localhost:8090';
 
-Após a inicialização da aplicação, com o banco de dados devidamente preparado, executar a rota '/create_basic_data' para inserir os dados básicos de teste;
+Após a inicialização da aplicação, com o banco de dados devidamente preparado, executar a rota '/test/create-data' para inserir os dados básicos de teste;
 
-Testar as outras rotas, como: '/cargo/get/all', '/atividade/get/all', '/epi/get/all', '/funcionario/get/all', '/funcionario/get/all/ativo', '/funcionario/get/all/inativo';
+Testar as outras rotas, como: '/cargo/get', '/atividade/get', '/epi/get', '/funcionario/get', '/funcionario/get?ativo=true', '/funcionario/get?ativo=false';
 
-Inserir um funcionário: '/funcionario/save' utilizando a requisição POST com o json de exemplo;
+Inserir um funcionário: '/funcionario/create' utilizando a requisição POST (body request);
 
 Testar a busca do funcionário pelo id: '/funcionario/get/1';
 
-Atualizar os dados do funcionário: '/funcionario/update' utilizando a requisição POST com o json de exemplo;
+Atualizar os dados do funcionário: '/funcionario/update' utilizando a requisição PUT (body request);
 
 Deletar o funcionário pelo id: '/funcionario/delete/1';
-
-Obs: Após a primeira rodade de teste caso necessário testar deverá ser atualizado os ids dentro dos pacotes json para funcionar novamente.
 
 ### Links Úteis
 
@@ -94,4 +90,4 @@ https://onlinestringtools.com/url-encode-string
 
 Implementar uma pequena aplicação para interagir com a aplicação principal a fim de testes;
 
-Utilizar docker para montar os ambientes de aplicação e banco de dados.
+Utilizar docker para montar o ambiente da aplicação.
