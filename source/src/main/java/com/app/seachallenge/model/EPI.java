@@ -12,6 +12,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_epi")
 @SequenceGenerator(name = "sq_epi", initialValue = 1, allocationSize = 1)
@@ -27,28 +32,4 @@ public class EPI implements Serializable {
 	
 	@OneToMany(mappedBy = "epi", cascade = CascadeType.ALL)
 	private List<FuncionarioAtividadeEPI> funcionarioAtividadeEpis;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public List<FuncionarioAtividadeEPI> getFuncionarioAtividadeEpis() {
-		return funcionarioAtividadeEpis;
-	}
-
-	public void setFuncionarioAtividadeEpis(List<FuncionarioAtividadeEPI> funcionarioAtividadeEpis) {
-		this.funcionarioAtividadeEpis = funcionarioAtividadeEpis;
-	}
 }

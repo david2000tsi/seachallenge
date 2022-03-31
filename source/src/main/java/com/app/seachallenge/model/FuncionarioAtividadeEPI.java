@@ -14,6 +14,11 @@ import javax.persistence.Table;
 
 import com.sun.istack.Nullable;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_funcionario_atividade_epi")
 @SequenceGenerator(name = "sq_funcionario_atividade_epi", initialValue = 1, allocationSize = 1)
@@ -42,44 +47,4 @@ private static final long serialVersionUID = 1L;
 	@Nullable
 	@Column(name = "numero_ca")
 	private long numeroCA;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
-
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
-
-	public Atividade getAtividade() {
-		return atividade;
-	}
-
-	public void setAtividade(Atividade atividade) {
-		this.atividade = atividade;
-	}
-
-	public EPI getEpi() {
-		return epi;
-	}
-
-	public void setEpi(EPI epi) {
-		this.epi = epi;
-	}
-
-	public long getNumeroCA() {
-		return numeroCA;
-	}
-
-	public void setNumeroCA(long numeroCA) {
-		this.numeroCA = numeroCA;
-	}
 }

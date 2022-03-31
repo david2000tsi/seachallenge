@@ -2,12 +2,16 @@ package com.app.seachallenge.dto;
 
 import com.app.seachallenge.model.Atividade;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 public class AtividadeDTO {
 	private long id;
 	private String nome;
-	
-	public AtividadeDTO() {
-	}
 	
 	public AtividadeDTO(Atividade atividade) {
 		id = atividade.getId();
@@ -26,21 +30,5 @@ public class AtividadeDTO {
 			return false;
 		}
 		return true;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 }

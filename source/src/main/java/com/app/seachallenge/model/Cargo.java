@@ -13,6 +13,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_cargo")
 @SequenceGenerator(name = "sq_cargo", initialValue = 1, allocationSize = 1)
@@ -30,28 +35,4 @@ public class Cargo implements Serializable {
 	
 	@OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL)
 	private List<Funcionario> funcionarios;
-	
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public List<Funcionario> getFuncionarios() {
-		return funcionarios;
-	}
-
-	public void setFuncionarios(List<Funcionario> funcionarios) {
-		this.funcionarios = funcionarios;
-	}
 }
